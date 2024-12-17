@@ -3,6 +3,9 @@ package org.example.plan.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -27,4 +30,5 @@ public class Member extends BaseEntity{
 
     public Member() {
     }
+
 }

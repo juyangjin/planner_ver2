@@ -3,6 +3,7 @@ package org.example.plan.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 
@@ -22,6 +23,9 @@ public class Plan extends BaseEntity {
     @Column(columnDefinition = "longtext")
     private String contents;
 
+    @LastModifiedDate
+    private LocalDateTime modifiedAt;
+
     @Setter
     @ManyToOne
     @JoinColumn(name = "member_id")
@@ -32,7 +36,6 @@ public class Plan extends BaseEntity {
         this.title = title;
         this.contents = contents;
     }
-
 
     public Plan() {
 

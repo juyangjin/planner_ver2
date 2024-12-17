@@ -15,11 +15,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
-    //생성시간과 수정시간을 추상화로 관리
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime modifiedAt;
 }
+
+

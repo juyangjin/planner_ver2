@@ -17,11 +17,11 @@ public class PlanService {
 
     public PlanResponseDto save(String username, String title, String contents){
 
-        Plan plan = new Plan(username, title, contents);
+        Plan plan = new Plan(title, contents);
 
         planRepository.save(plan);
 
-        return new PlanResponseDto(plan.getId(),plan.getUsername(),plan.getTitle(),plan.getContents(),plan.getCreatedAt(),plan.getCreatedAt());
+        return new PlanResponseDto(plan.getId(),plan.getTitle(),plan.getContents(),plan.getCreatedAt(),plan.getCreatedAt());
     }
 
     public List<PlanResponseDto> findAll(){
@@ -34,14 +34,20 @@ public class PlanService {
     public PlanResponseDto findById(Long id){
         Plan findPlan = planRepository.findByIdOrElseThrow(id);
 
-        return new PlanResponseDto(findPlan.getId(), findPlan.getUsername(), findPlan.getTitle(), findPlan.getContents(),findPlan.getCreatedAt(),findPlan.getModifiedAt());
+        return new PlanResponseDto(findPlan.getId(), findPlan.getTitle(), findPlan.getContents(),findPlan.getCreatedAt(),findPlan.getModifiedAt());
     }
 
     @Transactional
-    public PlanResponseDto updatePlan(Long id, String username, String title, String contents) {
+    public PlanResponseDto updatePlan(Long id,  String title, String contents) {
         Plan findPlan = planRepository.findByIdOrElseThrow(id);
         planRepository.save(findPlan);
 
-        return new PlanResponseDto(id,username, title ,contents ,findPlan.getCreatedAt(), LocalDateTime.now());
+        return new PlanResponseDto(id, title ,contents ,findPlan.getCreatedAt(), LocalDateTime.now());
+    }
+
+    public void delete(Long id) {
+        Plan findPlan = planRepository.findByIdOrElseThrow(id);
+
+        planRepository.delete(findPlan);
     }
 }

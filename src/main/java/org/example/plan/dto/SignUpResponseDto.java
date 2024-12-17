@@ -7,10 +7,14 @@ public class SignUpResponseDto {
     private final Long id;
     private final String username;
     private final String e_mail;
+    private final String password;
 
-    public SignUpResponseDto(Long id, String username, String eMail) {
+    public SignUpResponseDto(Long id, String username, String eMail, String password) {
         this.id = id;
         this.username = username;
-        e_mail = eMail;
+        this.e_mail = eMail;
+        this.password = password;
     }
+
+
 }

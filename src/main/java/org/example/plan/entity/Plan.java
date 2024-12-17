@@ -13,9 +13,6 @@ public class Plan extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String username;
-
     @Column(nullable = false)
     private String title;
 
@@ -23,8 +20,7 @@ public class Plan extends BaseEntity {
     private String contents;
 
 
-    public Plan(String username, String title, String contents) {
-        this.username = username;
+    public Plan(String title, String contents) {
         this.title = title;
         this.contents = contents;
     }

@@ -48,16 +48,16 @@ public class MemberService {
     @Transactional
     public MemberResponseDto updateMember(Long id, String username, String e_mail){
         Member findMember = memberRepository.findByIdOrElseThrow(id);
-        memberRepository.save(findMember);
+        findMember.setUsername(username);
+        findMember.setE_mail(e_mail);
 
         return new MemberResponseDto(id, username, e_mail);
     }
 
-    //
-    //    public void delete(Long id) {
-    //        Plan findPlan = planRepository.findByIdOrElseThrow(id);
-    //
-    //        planRepository.delete(findPlan);
-    //    }
+    public void delete(Long id){
+        Member findMember = memberRepository.findByIdOrElseThrow(id);
+
+        memberRepository.delete(findMember);
+    }
 
 }

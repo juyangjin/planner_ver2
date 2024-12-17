@@ -44,5 +44,4 @@ public class PlanService {
 
         return new PlanResponseDto(id,username, title ,contents ,findPlan.getCreatedAt(), LocalDateTime.now());
     }
-
 }

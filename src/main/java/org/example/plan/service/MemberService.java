@@ -19,12 +19,12 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public SignUpResponseDto signUp(String username, String e_mail) {
+    public SignUpResponseDto signUp(String username, String e_mail, String password) {
 
-        Member member = new Member(username, e_mail);
+        Member member = new Member(username, e_mail, password);
         Member saveMember = memberRepository.save(member);
 
-        return new SignUpResponseDto(saveMember.getId(),saveMember.getUsername(),saveMember.getE_mail());
+        return new SignUpResponseDto(saveMember.getId(),saveMember.getUsername(),saveMember.getE_mail(),saveMember.getPassword());
     }
 
     public List<MemberResponseDto> findAll() {

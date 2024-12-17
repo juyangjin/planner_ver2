@@ -21,7 +21,6 @@ public class PlanResponseDto {
         this.modifiedAt = modifiedAt;
     }
 
-
     public static PlanResponseDto toDto (Plan plan){
         return new PlanResponseDto(plan.getId(), plan.getTitle(), plan.getContents(),plan.getCreatedAt(),plan.getModifiedAt());
     }

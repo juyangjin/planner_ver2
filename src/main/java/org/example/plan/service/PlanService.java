@@ -3,7 +3,9 @@ package org.example.plan.service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.example.plan.dto.PlanResponseDto;
+import org.example.plan.entity.Member;
 import org.example.plan.entity.Plan;
+import org.example.plan.repository.MemberRepository;
 import org.example.plan.repository.PlanRepository;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,14 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class PlanService {
+    private final MemberRepository memberRepository;
     private final PlanRepository planRepository;
 
     public PlanResponseDto save(String username, String title, String contents){
+        Member findMember = memberRepository.findMemberByUsernameOrElseThrow(username);
 
         Plan plan = new Plan(title, contents);
+        plan.setMember(findMember);
 
         planRepository.save(plan);
 
@@ -40,9 +45,10 @@ public class PlanService {
     @Transactional
     public PlanResponseDto updatePlan(Long id,  String title, String contents) {
         Plan findPlan = planRepository.findByIdOrElseThrow(id);
-        planRepository.save(findPlan);
+        findPlan.setTitle(title);
+        findPlan.setContents(contents);
 
-        return new PlanResponseDto(id, title ,contents ,findPlan.getCreatedAt(), LocalDateTime.now());
+        return new PlanResponseDto(findPlan.getId(), findPlan.getTitle(), findPlan.getContents(),findPlan.getCreatedAt(), LocalDateTime.now());
     }
 
     public void delete(Long id) {

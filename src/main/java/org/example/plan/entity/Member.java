@@ -18,12 +18,10 @@ public class Member extends BaseEntity{
     private String e_mail;
 
     public Member(String username, String e_mail) {
-
-    }
-
-    public Member(String username, String e_mail, String password){
         this.username = username;
         this.e_mail = e_mail;
     }
 
+    public Member() {
+    }
 }

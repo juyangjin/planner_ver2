@@ -1,6 +1,9 @@
 package org.example.plan.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -19,6 +22,7 @@ public class Member extends BaseEntity{
     @Column(nullable = false)
     private String username;
 
+    @Email
     @Setter
     @Column(nullable = false, unique = true)
     private String email;

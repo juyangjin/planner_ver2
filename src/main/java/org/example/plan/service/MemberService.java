@@ -2,6 +2,7 @@ package org.example.plan.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.example.plan.config.PasswordEncoder;
 import org.example.plan.dto.MemberResponseDto;
 import org.example.plan.dto.SignUpResponseDto;
 import org.example.plan.entity.Member;
@@ -19,15 +20,11 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private static final String[] emailList = {"*@*","*@*"};
+    private final PasswordEncoder passwordEncoder;
 
     public SignUpResponseDto signUp(String username, String email, String password) {
 
-        if(!isWhiteList(email)){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이메일 형식에 맞게 입력하세요.");
-        }
-
-        Member member = new Member(username, email, password);
+        Member member = new Member(username, email, passwordEncoder.encode(password));
         Member saveMember = memberRepository.save(member);
 
         return new SignUpResponseDto(saveMember.getId(),saveMember.getUsername(),saveMember.getEmail(),saveMember.getPassword());
@@ -65,8 +62,4 @@ public class MemberService {
 
         memberRepository.delete(findMember);
     }
-
-        private boolean isWhiteList(String email) {
-            return PatternMatchUtils.simpleMatch(emailList, email);
-        }
 }

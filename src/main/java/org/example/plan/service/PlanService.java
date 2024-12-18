@@ -2,6 +2,7 @@ package org.example.plan.service;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.example.plan.config.PasswordEncoder;
 import org.example.plan.dto.PlanResponseDto;
 import org.example.plan.entity.Member;
 import org.example.plan.entity.Plan;
@@ -14,11 +15,14 @@ import org.springframework.web.server.ResponseStatusException;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static java.util.regex.Pattern.matches;
+
 @Service
 @RequiredArgsConstructor
 public class PlanService {
     private final MemberRepository memberRepository;
     private final PlanRepository planRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public PlanResponseDto save(String username, String title, String contents){
         Member findMember = memberRepository.findMemberByUsernameOrElseThrow(username);
@@ -46,10 +50,9 @@ public class PlanService {
 
     @Transactional
     public PlanResponseDto updatePlan(Long id,  String title, String contents, String password) {
-
         Member member = memberRepository.findByIdOrElseThrow(id);
 
-        if(!member.getPassword().equals(password)){
+        if(!passwordEncoder.matches(password,member.getPassword())){
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST," 비밀번호 오답");
         }
 

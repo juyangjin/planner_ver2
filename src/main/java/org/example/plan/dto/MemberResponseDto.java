@@ -10,6 +10,7 @@ public class MemberResponseDto {
     private final String username;
     private final String email;
 
+
     public MemberResponseDto(Long id, String username, String email) {
         this.id = id;
         this.username = username;

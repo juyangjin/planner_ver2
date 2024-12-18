@@ -7,7 +7,9 @@ import org.example.plan.entity.Member;
 import org.example.plan.entity.Plan;
 import org.example.plan.repository.MemberRepository;
 import org.example.plan.repository.PlanRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -43,7 +45,14 @@ public class PlanService {
     }
 
     @Transactional
-    public PlanResponseDto updatePlan(Long id,  String title, String contents) {
+    public PlanResponseDto updatePlan(Long id,  String title, String contents, String password) {
+
+        Member member = memberRepository.findByIdOrElseThrow(id);
+
+        if(!member.getPassword().equals(password)){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST," 비밀번호 오답");
+        }
+
         Plan findPlan = planRepository.findByIdOrElseThrow(id);
         findPlan.setTitle(title);
         findPlan.setContents(contents);

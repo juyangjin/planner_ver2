@@ -3,11 +3,13 @@ package org.example.plan.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.plan.dto.PlanRequestDto;
 import org.example.plan.dto.PlanResponseDto;
+import org.example.plan.dto.SignUpResponseDto;
 import org.example.plan.service.PlanService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequestMapping("/plan")
@@ -18,13 +20,13 @@ public class PlanController {
 
     //일정을 생성하기 위해 PostMapping 사용
     @PostMapping
-    public ResponseEntity<PlanResponseDto> create(@RequestBody PlanRequestDto requestDto) {
+    public ResponseEntity<PlanResponseDto> create(@RequestBody PlanRequestDto requestDt0) {
 
         PlanResponseDto planResponseDto =
                 planService.save(
-                        requestDto.getUsername(),
-                        requestDto.getTitle(),
-                        requestDto.getContents()
+                        requestDt0.getUsername(),
+                        requestDt0.getTitle(),
+                        requestDt0.getContents()
                 );
 
         return new ResponseEntity<>(planResponseDto, HttpStatus.OK);
@@ -56,7 +58,9 @@ public class PlanController {
                 planService.updatePlan(
                         id,
                         requestDto.getTitle(),
-                        requestDto.getContents());
+                        requestDto.getContents(),
+                        requestDto.getPassword()
+                );
 
         return new ResponseEntity<>(responseDto,HttpStatus.OK);
     }

@@ -8,6 +8,7 @@ import org.example.plan.entity.Member;
 import org.example.plan.repository.MemberRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.util.PatternMatchUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
@@ -18,8 +19,13 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private static final String[] emailList = {"*@*","*@*"};
 
     public SignUpResponseDto signUp(String username, String email, String password) {
+
+        if(!isWhiteList(email)){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "이메일 형식에 맞게 입력하세요.");
+        }
 
         Member member = new Member(username, email, password);
         Member saveMember = memberRepository.save(member);
@@ -60,4 +66,7 @@ public class MemberService {
         memberRepository.delete(findMember);
     }
 
+        private boolean isWhiteList(String email) {
+            return PatternMatchUtils.simpleMatch(emailList, email);
+        }
 }

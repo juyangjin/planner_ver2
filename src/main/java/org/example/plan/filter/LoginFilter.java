@@ -41,7 +41,7 @@ public class LoginFilter implements Filter {
     }
 
     private boolean isWhiteList(String requsetURI) {
-        return PatternMatchUtils.simpleMatch(WHITE_LIST, requsetURI);
+      return PatternMatchUtils.simpleMatch(WHITE_LIST, requsetURI);
     }
 
 }

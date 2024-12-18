@@ -2,7 +2,6 @@ package org.example.plan.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.example.plan.dto.*;
-import org.example.plan.repository.MemberRepository;
 import org.example.plan.service.MemberService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +16,19 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @PostMapping
+    //유저 회원가입을 위해 PostMapping에 주소 설정
+    @PostMapping("/signup")
     public ResponseEntity<SignUpResponseDto> signUp(@RequestBody SignUpRequestDto requestDto) {
 
         SignUpResponseDto signUpResponseDto =
                 memberService.signUp(
                         requestDto.getUsername(),
-                        requestDto.getE_mail(),
+                        requestDto.getEmail(),
                         requestDto.getPassword()
                 );
         return new ResponseEntity<>(signUpResponseDto, HttpStatus.CREATED);
     }
+
 
     @GetMapping
     public ResponseEntity<List<MemberResponseDto>> findAll() {
@@ -52,7 +53,7 @@ public class MemberController {
                 memberService.updateMember(
                         id,
                         requestDto.getUsername(),
-                        requestDto.getE_mail()
+                        requestDto.getEmail()
                 );
         return new ResponseEntity<>(responseDto,HttpStatus.OK);
     }

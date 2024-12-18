@@ -26,6 +26,8 @@ public class Member extends BaseEntity{
     @Column(nullable = false)
     private String password;
 
+
+
     public Member(String username, String e_mail, String password) {
         this.username = username;
         this.e_mail = e_mail;

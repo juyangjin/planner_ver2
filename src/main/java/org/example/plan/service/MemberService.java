@@ -19,12 +19,12 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
 
-    public SignUpResponseDto signUp(String username, String e_mail, String password) {
+    public SignUpResponseDto signUp(String username, String email, String password) {
 
-        Member member = new Member(username, e_mail, password);
+        Member member = new Member(username, email, password);
         Member saveMember = memberRepository.save(member);
 
-        return new SignUpResponseDto(saveMember.getId(),saveMember.getUsername(),saveMember.getE_mail(),saveMember.getPassword());
+        return new SignUpResponseDto(saveMember.getId(),saveMember.getUsername(),saveMember.getEmail(),saveMember.getPassword());
     }
 
     public List<MemberResponseDto> findAll() {
@@ -42,16 +42,16 @@ public class MemberService {
         }
 
         Member findMember = optionalMember.get();
-        return new MemberResponseDto(id, findMember.getUsername(), findMember.getE_mail());
+        return new MemberResponseDto(id, findMember.getUsername(), findMember.getEmail());
     }
 
     @Transactional
-    public MemberResponseDto updateMember(Long id, String username, String e_mail){
+    public MemberResponseDto updateMember(Long id, String username, String email){
         Member findMember = memberRepository.findByIdOrElseThrow(id);
         findMember.setUsername(username);
-        findMember.setE_mail(e_mail);
+        findMember.setEmail(email);
 
-        return new MemberResponseDto(id, username, e_mail);
+        return new MemberResponseDto(id, username, email);
     }
 
     public void delete(Long id){

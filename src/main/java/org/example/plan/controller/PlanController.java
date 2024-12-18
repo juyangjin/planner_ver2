@@ -3,13 +3,11 @@ package org.example.plan.controller;
 import lombok.RequiredArgsConstructor;
 import org.example.plan.dto.PlanRequestDto;
 import org.example.plan.dto.PlanResponseDto;
-import org.example.plan.dto.SignUpResponseDto;
 import org.example.plan.service.PlanService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Locale;
 
 @RestController
 @RequestMapping("/plan")

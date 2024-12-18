@@ -16,21 +16,20 @@ public class Member extends BaseEntity{
     private Long id;
 
     @Setter
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private String username;
 
     @Setter
-    @Column(nullable = false)
-    private String e_mail;
+    @Column(nullable = false, unique = true)
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
 
-
-    public Member(String username, String e_mail, String password) {
+    public Member(String username, String email, String password) {
         this.username = username;
-        this.e_mail = e_mail;
+        this.email = email;
         this.password = password;
     }
 
@@ -38,4 +37,5 @@ public class Member extends BaseEntity{
     public Member() {
 
     }
+
 }

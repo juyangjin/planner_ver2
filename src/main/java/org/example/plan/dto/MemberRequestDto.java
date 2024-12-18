@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public class MemberRequestDto {
     private final String username;
-    private final String e_mail;
+    private final String email;
 
-    public MemberRequestDto(String username, String eMail) {
+    public MemberRequestDto(String username, String email) {
         this.username = username;
-        this.e_mail = eMail;
+        this.email = email;
     }
 }

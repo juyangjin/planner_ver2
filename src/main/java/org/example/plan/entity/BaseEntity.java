@@ -19,6 +19,13 @@ public abstract class BaseEntity {
     @CreatedDate
     @Column(updatable = false)
     private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime modifiedAt;
+
+    /*
+    생성시간과 수정시간을 효율적으로 관리하기 위해 추상클래스를 사용하였고, 날짜와 시간에 대한 컬럼으로 저장하였다.
+    */
 }
 
 

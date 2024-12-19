@@ -1,11 +1,9 @@
 package org.example.plan.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.LastModifiedDate;
-
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
@@ -19,6 +17,10 @@ public class Member extends BaseEntity{
     @Column(nullable = false)
     private String username;
 
+    /*
+    이메일 검증을 위해 @Email을 사용하였다.
+     */
+    @Email
     @Setter
     @Column(nullable = false, unique = true)
     private String email;

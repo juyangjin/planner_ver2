@@ -23,9 +23,10 @@ public class Plan extends BaseEntity {
     @Column(columnDefinition = "longtext")
     private String contents;
 
-    @LastModifiedDate
-    private LocalDateTime modifiedAt;
-
+    /*
+    일정에서 유저를 N:1로 사용할 수 있게 조인하였다.
+    유저는 하나이지만 일정을 여러 개 쓸 수 있다.
+     */
     @Setter
     @ManyToOne
     @JoinColumn(name = "member_id")

@@ -18,6 +18,9 @@ public class CustomFilter implements Filter {
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         String requestURI = httpRequest.getRequestURI();
 
+        /*
+        눈에 보기 편하도록 로그인 필터가 실행될 때 응답 URI가 무엇인지 터미널 콘솔에 로그가 찍힐 수 있게 하였다.
+         */
         log.info("request URI = {}", requestURI);
         chain.doFilter(request, response);
     }

@@ -6,7 +6,9 @@ import org.example.plan.config.PasswordEncoder;
 import org.example.plan.dto.MemberResponseDto;
 import org.example.plan.dto.SignUpResponseDto;
 import org.example.plan.entity.Member;
+import org.example.plan.entity.Plan;
 import org.example.plan.repository.MemberRepository;
+import org.example.plan.repository.PlanRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.util.PatternMatchUtils;
@@ -21,6 +23,7 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final PlanRepository planRepository;
 
     public SignUpResponseDto signUp(String username, String email, String password) {
 
@@ -59,6 +62,11 @@ public class MemberService {
 
     public void delete(Long id){
         Member findMember = memberRepository.findByIdOrElseThrow(id);
+        Plan findPlan = planRepository.findByIdOrElseThrow(id);
+
+        if (!findPlan.getTitle().isEmpty()) {
+            throw new IllegalStateException("사용자의 게시글이 존재합니다. 삭제할 수 없습니다.");
+        }
 
         memberRepository.delete(findMember);
     }

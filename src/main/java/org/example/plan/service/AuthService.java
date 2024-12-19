@@ -30,8 +30,4 @@ public class AuthService {
         return member.getEmail();
     }
 
-    public void logout(HttpSession session) {
-        session.invalidate();
-    }
-
 }

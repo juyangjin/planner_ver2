@@ -1,5 +1,6 @@
 package org.example.plan.controller;
 
+import jakarta.security.auth.message.AuthException;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.example.plan.dto.LoginRequestDto;
@@ -24,7 +25,7 @@ public class AuthController {
     회원가입을 할 때 암호화된 비밀번호를 세션키에 적용하여 해당 값이 비어있을 때는 인증 실패 메시지를 뜨게 하였다.
      */
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody LoginRequestDto loginRequestDto, HttpSession session) {
+    public ResponseEntity<String> login(@RequestBody LoginRequestDto loginRequestDto, HttpSession session) throws AuthException {
         String sessionKey = authService.login(loginRequestDto.getEmail(),loginRequestDto.getPassword(), session);
 
         if(sessionKey == null) {

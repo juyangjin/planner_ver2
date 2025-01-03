@@ -9,10 +9,7 @@ import org.example.plan.entity.Member;
 import org.example.plan.entity.Plan;
 import org.example.plan.repository.MemberRepository;
 import org.example.plan.repository.PlanRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.util.PatternMatchUtils;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,7 +41,7 @@ public class MemberService {
         Optional<Member> optionalMember = memberRepository.findById(id);
 
         if (optionalMember.isEmpty()) { //예외처리를 위한 조건문
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Does not exist id = " + id);
+            throw new IllegalStateException ("Does not exist id = " + id);
         }
 
         Member findMember = optionalMember.get();
@@ -65,7 +62,7 @@ public class MemberService {
         Plan findPlan = planRepository.findByIdOrElseThrow(id);
 
         if (!findPlan.getTitle().isEmpty()) {
-            throw new IllegalStateException("사용자의 게시글이 존재합니다. 삭제할 수 없습니다.");
+            throw new IllegalStateException ("사용자의 게시글이 존재합니다. 삭제할 수 없습니다.");
         }
 
         memberRepository.delete(findMember);

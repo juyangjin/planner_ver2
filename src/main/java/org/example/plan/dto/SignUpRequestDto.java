@@ -1,16 +1,13 @@
 package org.example.plan.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 public class SignUpRequestDto {
     private final String username;
     private final String email;
     private final String password;
 
-    public SignUpRequestDto(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 }

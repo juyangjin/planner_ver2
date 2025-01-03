@@ -7,6 +7,8 @@ import org.example.plan.dto.PlanResponseDto;
 import org.example.plan.entity.Comment;
 import org.example.plan.entity.Member;
 import org.example.plan.entity.Plan;
+import org.example.plan.exception.GlobalExceptionHandler;
+import org.example.plan.exception.InvalidRequestException;
 import org.example.plan.repository.CommentRepository;
 import org.example.plan.repository.MemberRepository;
 import org.example.plan.repository.PlanRepository;
@@ -58,7 +60,7 @@ public class PlanService {
         Member member = findPlan.getMember();
 
         if(!passwordEncoder.matches(password,member.getPassword())){
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST," 비밀번호 오답");
+            throw new InvalidRequestException ("비밀번호 오답");
         }
 
         findPlan.setTitle(title);
@@ -72,7 +74,7 @@ public class PlanService {
         Comment findComment =  commentRepository.findByIdOrElseThrow(id);
 
         if (!findComment.getComment().isEmpty()) {
-            throw new IllegalStateException("Plan에 연결된 댓글이 존재합니다. 삭제할 수 없습니다.");
+            throw new IllegalStateException ("Plan에 연결된 댓글이 존재합니다. 삭제할 수 없습니다.");
         }
 
         planRepository.delete(findPlan);

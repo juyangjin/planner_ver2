@@ -36,7 +36,7 @@ public class MemberController {
             FieldError emailError = bindingResult.getFieldError("email");
             if (emailError != null) {
                 String errorMessage = emailError.getDefaultMessage();
-                return new ResponseEntity<>(errorMessage, HttpStatus.BAD_REQUEST);
+                throw new IllegalStateException (errorMessage);
             }
         }
 
